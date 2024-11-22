@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+echo "Running pre-push hook..."
+
+# Apply Spotless formatting
+echo "Applying code formatting with Spotless..."
+mvn spotless:apply
+
+# Run tests (dummy success for now)
+echo "Running tests..."
+mvn test
+
+# Compile the project
+echo "Building and compiling the project..."
+mvn clean install -DskipTests
+
+echo "Pre-push checks passed."
