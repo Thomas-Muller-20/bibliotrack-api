@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Optional<DecodedJWT> signIn(String username, String pwd) {
+  public Optional<DecodedJWT> signIn(String username, String password) {
     var user =
         userRepository
             .findByUsername(username)
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
                 () ->
                     new UserNotFoundException(
                         "User with username %s not found".formatted(username)));
-    if (!passwordEncoder.matches(pwd, user.getPwd())) {
+    if (!passwordEncoder.matches(password, user.getPassword())) {
       throw new InvalidPasswordException("Invalid password");
     }
     return jwtTokenProvider.toDecodedJWT(
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
   public User signUp(User user) {
     existsByUsername(user);
     user.setRole("ROLE_USER");
-    user.setPwd(passwordEncoder.encode(user.getPwd()));
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
     userRepository.save(user);
     return user;
   }

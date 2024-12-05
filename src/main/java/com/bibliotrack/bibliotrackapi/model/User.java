@@ -18,8 +18,8 @@ public class User {
   @Column(name = "username", unique = true)
   private String username;
 
-  @Column(name = "pwd")
-  private String pwd;
+  @Column(name = "password")
+  private String password;
 
   @Column(name = "role")
   private String role;

@@ -24,7 +24,7 @@ public class AuthController {
   private final JWTTokenMapper jwtTokenMapper;
 
   @PostMapping("/sign-up")
-  public ResponseEntity<UserDto> signUpForAdmin(@RequestBody @Valid UserCreationDto userDto) {
+  public ResponseEntity<UserDto> signUp(@RequestBody @Valid UserCreationDto userDto) {
     var newUser = userService.signUp(userMapper.toUser(userDto));
     return new ResponseEntity<>(userMapper.toUserDTO(newUser), HttpStatus.CREATED);
   }
@@ -32,6 +32,8 @@ public class AuthController {
   @PostMapping("/sign-in")
   public ResponseEntity<JWTToken> signIn(@RequestBody @Valid UserCreationDto userDto) {
     return ResponseEntity.of(
-        userService.signIn(userDto.getUsername(), userDto.getPwd()).map(jwtTokenMapper::toPayload));
+        userService
+            .signIn(userDto.getUsername(), userDto.getPassword())
+            .map(jwtTokenMapper::toPayload));
   }
 }
