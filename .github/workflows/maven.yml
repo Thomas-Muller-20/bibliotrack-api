@@ -32,7 +32,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Checking code formatting with Spotless...
-      run: spotless:check
+      run: mvn spotless:check
 
     - name: Commit check style
       run: mvn commitlinter:validate
