@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: bibliotrack-api
+    depends_on:
+      - bibliotrack-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://bibliotrack-db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    ports:
+      - '8080:8080'
+  bibliotrack-db:
+    image: postgres
+    container_name: bibliotrack-db
+    environment:
+      - POSTGRES_DB = postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
