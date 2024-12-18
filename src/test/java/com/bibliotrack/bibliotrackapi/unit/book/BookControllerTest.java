@@ -1,5 +1,7 @@
 package com.bibliotrack.bibliotrackapi.unit.book;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 import com.bibliotrack.bibliotrackapi.model.Book;
 import com.bibliotrack.bibliotrackapi.model.mapper.BookMapper;
@@ -7,6 +9,8 @@ import com.bibliotrack.bibliotrackapi.service.BookService;
 import com.bibliotrack.bibliotrackapi.web.controller.BookController;
 import com.bibliotrack.bibliotrackapi.web.dto.book.BookCreationDto;
 import com.bibliotrack.bibliotrackapi.web.dto.book.BookDto;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,22 +18,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-
 class BookControllerTest {
 
-  @Mock
-  private BookService bookService;
+  @Mock private BookService bookService;
 
-  @Mock
-  private BookMapper bookMapper;
+  @Mock private BookMapper bookMapper;
 
-  @InjectMocks
-  private BookController bookController;
+  @InjectMocks private BookController bookController;
 
   private Book testBook;
   private BookDto testBookDto;
@@ -126,4 +121,3 @@ class BookControllerTest {
     verify(bookService).deleteBook(1L);
   }
 }
-

@@ -19,5 +19,4 @@ public class BookCreationDto {
   @NotBlank(message = "Specify description")
   @Size(min = 6, message = "Enter at least 6 characters")
   private String description;
-
 }

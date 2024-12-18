@@ -1,5 +1,10 @@
 package com.bibliotrack.bibliotrackapi.integration.web;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.bibliotrack.bibliotrackapi.integration.testcontainer.TestContainersConfig;
 import com.bibliotrack.bibliotrackapi.repository.BookRepository;
 import com.bibliotrack.bibliotrackapi.web.dto.book.BookCreationDto;
@@ -18,23 +23,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @ContextConfiguration(classes = TestContainersConfig.class)
 @AutoConfigureMockMvc
-@WithMockUser(username = "admin", roles = {"ADMIN"})
+@WithMockUser(
+    username = "admin",
+    roles = {"ADMIN"})
 public class BookControllerIntegrationTest {
 
-  @Autowired
-  private MockMvc mockMvc;
-  @Autowired
-  private BookRepository repository;
+  @Autowired private MockMvc mockMvc;
+  @Autowired private BookRepository repository;
 
   @AfterEach
   public void cleanAll() {
@@ -48,14 +48,11 @@ public class BookControllerIntegrationTest {
     var book = getBook("Effective Java", "Joshua Bloch", "978-0134685991");
     mapper.findAndRegisterModules();
     var json = mapper.writeValueAsString(book);
-    var result = mockMvc.perform(post("/books")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(json));
+    var result =
+        mockMvc.perform(post("/books").contentType(MediaType.APPLICATION_JSON).content(json));
 
-    result.andExpectAll(
-        status().isCreated());
+    result.andExpectAll(status().isCreated());
   }
-
 
   @Test
   @Sql("/books-create.sql")
@@ -74,9 +71,7 @@ public class BookControllerIntegrationTest {
 
     var result = mockMvc.perform(get("/books/title/{title}", title));
 
-    result.andExpectAll(
-        status().isOk(),
-        jsonPath("$.title").value(title));
+    result.andExpectAll(status().isOk(), jsonPath("$.title").value(title));
   }
 
   @Test
@@ -86,9 +81,7 @@ public class BookControllerIntegrationTest {
 
     var result = mockMvc.perform(get("/books/author/{author}", author));
 
-    result.andExpectAll(
-        status().isOk(),
-        jsonPath("$.author").value(author));
+    result.andExpectAll(status().isOk(), jsonPath("$.author").value(author));
   }
 
   @Test
@@ -99,7 +92,7 @@ public class BookControllerIntegrationTest {
         status().isOk(),
         jsonPath("$").isArray(),
         jsonPath("$", hasSize(0)) // assuming there are no books initially
-    );
+        );
   }
 
   @Test
@@ -120,9 +113,9 @@ public class BookControllerIntegrationTest {
     var updatedBook = getBook("Clean Code", "Robert C. Martin", "978-0132350884");
     mapper.findAndRegisterModules();
     var json = mapper.writeValueAsString(updatedBook);
-    var result = mockMvc.perform(put("/books/{id}", id)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(json));
+    var result =
+        mockMvc.perform(
+            put("/books/{id}", id).contentType(MediaType.APPLICATION_JSON).content(json));
 
     result.andExpectAll(
         status().isOk(),

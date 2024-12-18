@@ -1,31 +1,26 @@
 package com.bibliotrack.bibliotrackapi.unit.book;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import com.bibliotrack.bibliotrackapi.exeption.BookNotFoundException;
 import com.bibliotrack.bibliotrackapi.exeption.ChangeException;
 import com.bibliotrack.bibliotrackapi.model.Book;
 import com.bibliotrack.bibliotrackapi.repository.BookRepository;
 import com.bibliotrack.bibliotrackapi.service.impl.BookServiceImpl;
-
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-import java.util.Optional;
-
 @ExtendWith(MockitoExtension.class)
 class BookServiceImplTest {
 
-  @Mock
-  private BookRepository bookRepository;
+  @Mock private BookRepository bookRepository;
 
-  @InjectMocks
-  private BookServiceImpl bookService;
+  @InjectMocks private BookServiceImpl bookService;
 
   @Test
   void createBook() {

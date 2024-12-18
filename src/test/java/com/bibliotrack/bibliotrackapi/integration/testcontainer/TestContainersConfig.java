@@ -13,5 +13,4 @@ public class TestContainersConfig {
   public PostgreSQLContainer<?> postgresSQLContainer() {
     return new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.0"));
   }
-
 }

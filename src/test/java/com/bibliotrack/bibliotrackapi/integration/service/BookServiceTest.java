@@ -1,6 +1,5 @@
 package com.bibliotrack.bibliotrackapi.integration.service;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,11 +23,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Transactional
 public class BookServiceTest {
 
-  @Autowired
-  private BookRepository bookRepository;
+  @Autowired private BookRepository bookRepository;
 
-  @Autowired
-  private BookServiceImpl bookService;
+  @Autowired private BookServiceImpl bookService;
 
   @AfterEach
   void cleanAll() {
@@ -96,4 +93,3 @@ public class BookServiceTest {
     assertTrue(bookService.findById(bookId).isEmpty());
   }
 }
-
