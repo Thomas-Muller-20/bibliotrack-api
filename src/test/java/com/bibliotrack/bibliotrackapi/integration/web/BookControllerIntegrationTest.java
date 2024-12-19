@@ -88,11 +88,7 @@ public class BookControllerIntegrationTest {
   void shouldReturnAllBooks() throws Exception {
     var result = mockMvc.perform(get("/books"));
 
-    result.andExpectAll(
-        status().isOk(),
-        jsonPath("$").isArray(),
-        jsonPath("$", hasSize(0)) // assuming there are no books initially
-        );
+    result.andExpectAll(status().isOk(), jsonPath("$").isArray(), jsonPath("$", hasSize(0)));
   }
 
   @Test
