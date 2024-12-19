@@ -91,7 +91,7 @@ public class BookControllerIntegrationTest {
     result.andExpectAll(
         status().isOk(),
         jsonPath("$").isArray(),
-        jsonPath("$", hasSize(0)) // assuming there are no books initially
+        jsonPath("$", hasSize(0))
         );
   }
 
